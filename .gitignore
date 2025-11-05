@@ -5,7 +5,6 @@
 data/**/*.csv
 
 # Ignore reports that are outputs of experiments
-report/**/*.csv
 report/**/*.joblib
 report/**/*.keras
 
