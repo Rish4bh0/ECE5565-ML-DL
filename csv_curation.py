@@ -1,6 +1,7 @@
-#this program should take unreadable cells in a csv and replace them will NULL and then write that back to the original csv
 import csv
+import pandas as pd
 
+#this program should take unreadable cells in a csv and replace them will NULL and then write that back to the original csv
 def csvNullReplacement(filepath):
     out_data = []
     with open(filepath, 'r', newline='') as csvfile:
@@ -17,24 +18,63 @@ def csvNullReplacement(filepath):
     
     return
 
-#this one is still in development and not meant to be operable yet
-def csvEncodeReplacement(filepath):
-    out_data = []
-    with open(filepath, 'r', newline='') as csvfile:
-        csv_reader = csv.reader(csvfile)
-        header = next(csv_reader)
-        data = list(csv_reader)
-        columns = list(zip(*data))
-        '''for i, col_data in enumerate(columns):
-            column_name = header[i]
-            has_int = False
-            for cell in col_data:
-                if has_int == False and i'''
-    with open('data/ton_iot/test1.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerows(out_data)
+#this program receives a csv filepath as well as some feature/column name, then it goes through it in order and replaces the values with integers
+#staying consistent on which number represents which value for that feature
+#this is useful for taking string values and encoding them to integers
+def encode_csv_column(filename, column_name):
+    column_data = []
+    saved_items = {}
+    used_nums = 0
+    with open(filename, 'r', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        if column_name not in reader.fieldnames:
+            print(f"Error: Column '{column_name}' not found in the CSV.")
+            return
+
+        for row in reader:
+            column_data.append(row[column_name])
+    
+    for item in column_data:
+        if item not in saved_items and item != column_name:
+            saved_items[item] = used_nums
+            used_nums += 1
+    for i in range(len(column_data)):
+        column_data[i] = saved_items[column_data[i]]
+    return column_data
+
+#replaces a specific value in a specific column with another specified value
+def replace_specific(filename, column_name, target, replacement):
+    column_data = []
+    with open(filename, 'r', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        if column_name not in reader.fieldnames:
+            print(f"Error: Column '{column_name}' not found in the CSV.")
+            return
+
+        for row in reader:
+            column_data.append(row[column_name])
+    for item, i in enumerate(column_data):
+        if item == target:
+            column_data[i] = replacement
+    data = pd.read_csv(filename)
+    data[column_name] = column_data
+    data.to_csv("data/bot_iot/Curated_Full5pc_4.csv")
+    print("All Done")
+    return
+
+#calls the encode_csv_column code on all the features you wish to select and then saves a new copy of the modified file
+def csvEncodeReplacement(filepath, encoded_features):
+    #encoded features should be list such as ["attack", "flags", "category"]
+    data = pd.read_csv(filepath)
+    for feat in encoded_features:
+        column_data = encode_csv_column(filepath, feat)
+        data[feat] = column_data
+    '''if len(item_replace) != 0:
+        column_data = replace_specific(filepath, item_replace[0], item_replace[1], item_replace[2])
+        data[item_replace[0]] = column_data'''
+    data.to_csv("data/bot_iot/Curated_Full5pc_4.csv")
     print("All Done")
     
     return
-csvNullReplacement("data/ton_iot/Train_Test_Windows_10.csv")
-
+csvEncodeReplacement("data/bot_iot/UNSW_2018_IoT_Botnet_Full5pc_4.csv", ["flgs", "proto", "state", "sport", "dport"])
+#replace_specific("data/bot_iot/Curated_Full5pc_4.csv", 'sport', '0x0303', '0.0303')
