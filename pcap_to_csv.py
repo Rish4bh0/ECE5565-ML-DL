@@ -283,3 +283,13 @@ def process_dataset(input_dir, output_csv="ctu13_pyshark.csv"):
     print(f"\nDone. CSV saved → {output_csv}")
 
 process_dataset("data/ctu13", "data/ctu13/ctu13_processed_pyshark.csv")
+
+'''import pandas as pd
+
+# Read the CSV files into DataFrames
+df1 = pd.read_csv("data/ctu13/CTU13_Attack_Traffic.csv")
+df2 = pd.read_csv("data/ctu13/CTU13_Normal_Traffic.csv")
+
+# Concatenate along rows (default behavior)
+merged_df_rows = pd.concat([df1, df2], ignore_index=True)
+merged_df_rows.to_csv("CTU13_Combined_Traffic.csv", index=False)'''
