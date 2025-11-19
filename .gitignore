@@ -3,6 +3,8 @@
 
 # Ignore dataset files
 data/**/*.csv
+data/**/*.parquet
+data/**/*.pcap
 
 # Ignore reports that are outputs of experiments
 report/**/*.joblib
