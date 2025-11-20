@@ -282,14 +282,19 @@ def process_dataset(input_dir, output_csv="ctu13_pyshark.csv"):
 
     print(f"\nDone. CSV saved → {output_csv}")
 
-process_dataset("data/ctu13", "data/ctu13/ctu13_processed_pyshark.csv")
+#process_dataset("data/ctu13", "data/ctu13/ctu13_processed_pyshark.csv")
 
-'''import pandas as pd
+import pandas as pd
 
-# Read the CSV files into DataFrames
-df1 = pd.read_csv("data/ctu13/CTU13_Attack_Traffic.csv")
-df2 = pd.read_csv("data/ctu13/CTU13_Normal_Traffic.csv")
-
+'''# Read the CSV files into DataFrames
+df1 = pd.read_csv("data/CICIDS2017/Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv")
+df2 = pd.read_csv("data/CICIDS2017/Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv")
+df3 = pd.read_csv("data/CICIDS2017/Friday-WorkingHours-Morning.pcap_ISCX.csv")
+df4 = pd.read_csv("data/CICIDS2017/Monday-WorkingHours.pcap_ISCX.csv")
+df5 = pd.read_csv("data/CICIDS2017/Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv")
+df6 = pd.read_csv("data/CICIDS2017/Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv")
+df7 = pd.read_csv("data/CICIDS2017/Tuesday-WorkingHours.pcap_ISCX.csv")
+df8 = pd.read_csv("data/CICIDS2017/Wednesday-workingHours.pcap_ISCX.csv")
 # Concatenate along rows (default behavior)
-merged_df_rows = pd.concat([df1, df2], ignore_index=True)
-merged_df_rows.to_csv("CTU13_Combined_Traffic.csv", index=False)'''
+merged_df_rows = pd.concat([df1, df2, df3, df4, df5, df6, df7, df8], ignore_index=True)
+merged_df_rows.to_csv("data/CICIDS2017/cicids2017_combined.csv", index=False)'''

@@ -53,12 +53,12 @@ def replace_specific(filename, column_name, target, replacement):
 
         for row in reader:
             column_data.append(row[column_name])
-    for item, i in enumerate(column_data):
+    for i, item in enumerate(column_data):
         if item == target:
             column_data[i] = replacement
     data = pd.read_csv(filename)
     data[column_name] = column_data
-    data.to_csv("data/bot_iot/Curated_Full5pc_4.csv")
+    data.to_csv("data/CICIDS2017/cicids2017_combined_relabled2.csv")
     print("All Done")
     return
 
@@ -69,12 +69,9 @@ def csvEncodeReplacement(filepath, encoded_features):
     for feat in encoded_features:
         column_data = encode_csv_column(filepath, feat)
         data[feat] = column_data
-    '''if len(item_replace) != 0:
-        column_data = replace_specific(filepath, item_replace[0], item_replace[1], item_replace[2])
-        data[item_replace[0]] = column_data'''
-    data.to_csv("data/bot_iot/Curated_Full5pc_4.csv")
+    data.to_csv("data/CICIDS2017/cicids2017_combined_relabled.csv")
     print("All Done")
     
     return
-csvEncodeReplacement("data/bot_iot/UNSW_2018_IoT_Botnet_Full5pc_4.csv", ["flgs", "proto", "state", "sport", "dport"])
-#replace_specific("data/bot_iot/Curated_Full5pc_4.csv", 'sport', '0x0303', '0.0303')
+csvEncodeReplacement("data/CICIDS2017/cicids2017_combined.csv", [" Label"])
+#replace_specific("data/CICIDS2017/cicids2017_combined_relabled2.csv", 'Flow Bytes/s', 'inf', '340282346638528859811704183484516925440')
