@@ -73,5 +73,4 @@ def csvEncodeReplacement(filepath, encoded_features):
     print("All Done")
     
     return
-csvEncodeReplacement("data/CICIDS2017/cicids2017_combined.csv", [" Label"])
-#replace_specific("data/CICIDS2017/cicids2017_combined_relabled2.csv", 'Flow Bytes/s', 'inf', '340282346638528859811704183484516925440')
+#csvEncodeReplacement("data/CICIDS2017/cicids2017_combined.csv", [" Label"])
